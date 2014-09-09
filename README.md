@@ -6,6 +6,7 @@ Will be designing and implementing MapReduce algorithms for a variety of common 
 Has a python library called MapReduce.py that implements the MapReduce programming model. The framework faithfully implements the MapReduce programming model, but it executes entirely on a single machine -- it does not involve parallel computation
 
 The various problems that are addressed using this design paradigm are: 
+
 1) Create an Inverted index. Given a set of documents, an inverted index is a dictionary where each word is associated with a list of the document identifiers in which that word appears.
 
 2) Implement a relational join as a MapReduce query
