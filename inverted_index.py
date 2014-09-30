@@ -21,10 +21,12 @@ You can test your solution to this problem using books.json:
 You can verify your solution against inverted_index.json.
 """
 
+#create a MapReduce object that is used to pass data between the map function and the reduce function
+
 mr = MapReduce.MapReduce()
 
-# =============================
-# Do not modify above this line
+#the mapper function tokenizes each document and emits a key-value pair. 
+#The key is a word formatted as a string and the value is the integer 1 to indicate an occurrence of word.
 
 def mapper(record):
     # key: document identifier
@@ -35,13 +37,18 @@ def mapper(record):
     for w in words:
       mr.emit_intermediate(w, key)
 
+#the reducer function sums up the list of occurrence counts and emits a count for word. 
+#Since the mapper function emits the integer 1 for each word, each element in the list_of_values is the integer 1.
+
 def reducer(key, list_of_values):
     # key: word
     # value: list of occurrence counts
     mr.emit((key, list(set(list_of_values))))
 
-# Do not modify below this line
-# =============================
+#The list of occurrence counts is summed and a (word, total) tuple is emitted 
+#where word is a string and total is an integer.
+
+#loads the json file and executes the MapReduce query which prints the result to stdout
 if __name__ == '__main__':
   inputdata = open(sys.argv[1])
   mr.execute(inputdata, mapper, reducer)
